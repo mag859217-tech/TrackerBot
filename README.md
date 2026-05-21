@@ -2,17 +2,21 @@
 
 Telegram-бот для отслеживания настроения, сна и продуктивности.
 
-## Возможности
+---
 
-- Запись ежедневных данных
+# Возможности
+
+- Добавление ежедневных записей
 - Статистика за неделю
 - Статистика за месяц
-- График активности
 - История записей
-- Инсайты на основе данных
+- График активности
+- Инсайты
 - Очистка данных
 
-## Технологии
+---
+
+# Технологии
 
 - Python
 - TeleBot
@@ -20,79 +24,58 @@ Telegram-бот для отслеживания настроения, сна и 
 - Pandas
 - Matplotlib
 
-## Структура проекта
+---
+
+# Структура проекта
 
 ```text
+├── .gitignore
+├── README.md
 ├── bot.py
 ├── config.py
 ├── db.py
 ├── handlers.py
 ├── keyboards.py
-├── stats.py
+├── requirements.txt
 ├── schema.sql
-├── database.db
-└── README.md
+├── sqlschema.jpg
+└── stats.py
 ```
 
-## Установка
+---
 
-### 1. Клонировать проект
+# Установка
+
+## Клонирование проекта
 
 ```bash
-git clone https://github.com/your_username/project.git
+git clone https://github.com/your_username/mood-tracker-bot.git
 ```
 
-### 2. Установить библиотеки
+## Установка библиотек
 
 ```bash
-pip install pytelegrambotapi pandas matplotlib
+pip install -r requirements.txt
 ```
+---
 
-## Настройка
-
-Открыть файл `config.py`
-
-```python
-TOKEN = "YOUR_TOKEN"
-```
-
-Вставить токен Telegram-бота.
-
-## Запуск
+# Запуск
 
 ```bash
 python bot.py
 ```
 
-## Команды
+# Команды
 
 | Команда | Описание |
 |---|---|
 | /start | Запуск бота |
 | /help | Помощь |
-| /add | Добавить запись |
+| /add | Добавление записи |
 | /stats | Статистика |
 | /history | История |
 | /clear | Очистка данных |
 
-## База данных
+# Автор
 
-Используется SQLite.
-
-Таблица:
-
-```sql
-CREATE TABLE IF NOT EXISTS records (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    date TEXT,
-    mood INTEGER,
-    work_hours REAL,
-    sleep_hours REAL,
-    comment TEXT
-);
-```
-
-## Автор
-
-Telegram Mood Tracker Bot
+Mood Tracker Bot
