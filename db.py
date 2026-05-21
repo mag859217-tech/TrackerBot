@@ -1,0 +1,118 @@
+import sqlite3
+
+from datetime import date
+
+DB_NAME = "database.db"
+
+
+def connect():
+    return sqlite3.connect(
+        DB_NAME,
+        check_same_thread=False
+    )
+
+
+def init_db():
+    with connect() as conn:
+
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS records (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                date TEXT,
+                mood INTEGER,
+                work_hours REAL,
+                sleep_hours REAL,
+                comment TEXT
+            )
+        """)
+
+        conn.commit()
+
+
+def add_record(
+    uid,
+    mood,
+    work,
+    sleep,
+    comment
+):
+    with connect() as conn:
+
+        conn.execute("""
+            INSERT INTO records (
+                user_id,
+                date,
+                mood,
+                work_hours,
+                sleep_hours,
+                comment
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            uid,
+            date.today().isoformat(),
+            mood,
+            work,
+            sleep,
+            comment
+        ))
+
+        conn.commit()
+
+
+def has_today_record(uid):
+
+    today = date.today().isoformat()
+
+    with connect() as conn:
+
+        cursor = conn.execute("""
+            SELECT COUNT(*)
+            FROM records
+            WHERE user_id = ?
+            AND date = ?
+        """, (
+            uid,
+            today
+        ))
+
+        result = cursor.fetchone()[0]
+
+        return result > 0
+
+
+def get_records(uid):
+
+    with connect() as conn:
+
+        cursor = conn.execute("""
+            SELECT *
+            FROM records
+            WHERE user_id = ?
+            ORDER BY date
+        """, (uid,))
+
+        columns = [
+            column[0]
+            for column in cursor.description
+        ]
+
+        data = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+        ]
+
+        return data
+
+
+def clear_data(uid):
+
+    with connect() as conn:
+
+        conn.execute("""
+            DELETE FROM records
+            WHERE user_id = ?
+        """, (uid,))
+
+        conn.commit()
