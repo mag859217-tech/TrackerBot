@@ -34,12 +34,6 @@ Telegram-бот для отслеживания настроения, сна и 
 
 # Установка
 
-## Клонирование проекта
-
-```bash
-git clone https://github.com/your_username/mood-tracker-bot.git
-```
-
 ## Установка библиотек
 
 ```bash
